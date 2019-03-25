@@ -1,0 +1,96 @@
+{
+  "name": "lyrical",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "better-npm-run build:dev",
+    "build:prod": "better-npm-run build:prod",
+    "postbuild:prod": "better-npm-run postbuild:prod",
+    "upload:firefox": "npm run build:prod && better-npm-run -p \"./firefox.env\" upload:firefox ",
+    "upload:chrome": "npm run build:prod && better-npm-run -p \"./chrome.env\" upload:chrome ",
+    "start": "better-npm-run start",
+    "test": "jest --watchAll --coverage"
+  },
+  "betterScripts": {
+    "build:dev": {
+      "command": "webpack -w --display-error-details --progress --colors",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "build:prod": {
+      "command": "webpack --display-error-details --progress --colors",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "postbuild:prod": {
+      "command": "rimraf $WEB_EXT_ARTIFACTS_DIR/* && web-ext build",
+      "env": {
+        "WEB_EXT_ARTIFACTS_DIR": "./web-ext-artifacts",
+        "WEB_EXT_SOURCE_DIR": "./extension"
+      }
+    },
+    "start": {
+      "command": "web-ext run",
+      "env": {
+        "WEB_EXT_SOURCE_DIR": "./extension"
+      }
+    },
+    "upload:firefox": {
+      "command": "web-ext sign",
+      "env": {
+        "WEB_EXT_SOURCE_DIR": "./extension"
+      }
+    },
+    "upload:chrome": {
+      "command": "webstore upload --source $WEB_EXT_ARTIFACTS_DIR/*.zip --extension-id $EXTENSION_ID",
+      "env": {
+        "WEB_EXT_ARTIFACTS_DIR": "./web-ext-artifacts",
+        "EXTENSION_ID": "bcdelgdkdecghkcbajbejcoojgcadpco"
+      }
+    }
+  },
+  "author": "",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-jest": "22.4.3",
+    "babel-loader": "7.1.2",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "better-npm-run": "0.1.0",
+    "chrome-webstore-upload-cli": "1.1.1",
+    "clean-webpack-plugin": "0.1.19",
+    "css-loader": "0.28.11",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "extract-text-webpack-plugin": "3.0.2",
+    "file-loader": "1.1.11",
+    "jest": "22.4.3",
+    "jest-junit": "^4.0.0",
+    "node-sass": "4.9.3",
+    "react-test-renderer": "16.3.1",
+    "react-toggle-switch": "3.0.4",
+    "sass-loader": "7.1.0",
+    "sinon-chrome": "2.3.1",
+    "style-loader": "0.20.3",
+    "url-loader": "1.0.1",
+    "web-ext": "2.6.0",
+    "webpack": "3.10.0",
+    "webpack-merge": "4.1.2"
+  },
+  "dependencies": {
+    "axios": "0.18.0",
+    "dotenv-webpack": "1.5.5",
+    "pptxgenjs": "2.5.0",
+    "prop-types": "15.6.1",
+    "react": "16.2.0",
+    "react-bootstrap": "0.32.1",
+    "react-dom": "16.2.0",
+    "rxjs": "5.5.8",
+    "webextension-polyfill": "0.2.1"
+  }
+}

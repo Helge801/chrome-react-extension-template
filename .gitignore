@@ -1,0 +1,16 @@
+# Ignore build artifacts and other files.
+.DS_Store
+yarn.lock
+extension/dist
+node_modules
+package-lock.json
+coverage/
+
+web-ext-artifacts/
+
+extension/\.web-extension-id
+
+*.env
+test_results/
+junit.xml
+artifacts/
